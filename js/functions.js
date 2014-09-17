@@ -6,7 +6,7 @@ var blindsCounter = 0;
 
 var bigblinds = [];
 /* Данные по умолчанию */
-store.set('time',{'minutes': 5, 'seconds': 00});
+store.set('time',{'minutes': 1, 'seconds': 30});
 store.set('minblinds', [5,10,20,30,40,50,75,100,200,400,800]);
 	
 	// Большие блайнды делаются легко
@@ -38,6 +38,7 @@ $(document).ready(function(){
 
 $(document).ready(function(){
 	$('.submit .button').on('click', function(){
+		alert('Пока ничего не сохраняется :(')
 		var parent = $(this).parents('.content');
 		parent.find('input').each(function(){
 
@@ -63,7 +64,7 @@ var timer = function(){
 			worker(time, startTime);
 		}
 		timer();
-	},50)
+	},500)
 };
 
 function worker(currentTime, startTime) {
