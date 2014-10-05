@@ -50,7 +50,10 @@
 		</audio>
 	</section>
 	<section id="sitNGoBlock" class="view">
-		<h1><span>В разработке</span></h1>
+		<h1><span>Расчет турнира</span></h1>
+		<div class="content">
+			<a id="calculateTournament" class="button">Рассчитать призовые</a>
+		</div>
 	</section>
 	<section id="settingsBlock" class="view">
 		<h1><span>Настройки</span></h1>
@@ -67,8 +70,51 @@
 		</div>
 
 		<div id="sitNGoSettings" class="content">
-			<h2>Настройки турнира <i>в разработке</i></h2>
-			
+			<h2>Настройки турнира</h2>
+			<ul class="form">
+				<li><b>Тип турнира</b>
+					<label>
+						<select id="tournamentType">
+							<option value="sit-n-go">Sit-n-go</option>
+							<option value="sit-n-go-50">Sit-n-go 50/50</option>
+						</select>
+					</label>
+				</li>
+				<li>
+					<label><b>Knock-out</b>
+						<select id="tournamentKnockout">
+							<option value="knockoutOff">Без награды за выбивание</option>
+							<option value="knockoutOn">С наградой за выбивание</option>
+						</select>
+					</label>
+				</li>
+				<li><b>Количество игроков</b>
+					<label><span>Для 50/50 от 7 игроков</span>
+						<select id="tournamentPlayers">
+							<option value="4">4 игрока</option>
+							<option value="5">5 игроков</option>
+							<option value="6">6 игроков</option>
+							<option value="7">7 игроков</option>
+							<option value="8">8 игроков</option>
+							<option value="9">9 игроков</option>
+							<option value="10">10 игроков</option>
+						</select>
+					</label>
+				</li>
+				<li><b>Ставка</b>
+					<label><span>Например, 100</span>
+						<input type="number" id="tournamentFee" value="100" placeholder="100">
+					</label>
+				</li>
+				<li><b>Стартовый стек</b>
+					<label><span>Столько фишек за первоначальную ставку</span>
+						<input type="number" value="500"  id="tournamentChips" placeholder="500">
+					</label>
+				</li>
+				<li class="submit">
+					<a class="button">Сохранить</a>
+				</li>
+			</ul>
 		</div>
 	</section>
 </div>

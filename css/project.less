@@ -70,6 +70,14 @@ body {
 	.wrap;
 	overflow: hidden;
 }
+.accent {
+	color: @pomegranate;
+	.bold;
+}
+.rouble {
+	.rouble();
+	.light;
+}
 header {
 	padding: @pad*2;
 	.tabs {
@@ -223,8 +231,23 @@ a {
 .content {
 	text-align: left;
 	padding: @pad;
+	.xlarge;
+	line-height: @xxxl;
+	table {
+		.xlarge;
+	}
 }
-
+table.chips {
+	td {
+		padding: @pad;
+	}
+	tr:nth-of-type(2n-1) td {
+		background: rgba(255, 255, 255, 0.05);
+	}
+	tr:nth-of-type(2n) td {
+		background: rgba(0, 0, 0, 0.05);
+	}
+}
 header {
 	.animated;
 	.fadeIn;
@@ -305,7 +328,7 @@ h1 {
 #prevBlinds::before {
 	.icon-undo;
 }
-input {
+input, select {
 	.xl;
 	width: auto;
 	padding: @pad*2;
@@ -320,10 +343,17 @@ input {
 .form {
 	padding: @pad*2;
 	li {
+		//display: inline-block;
+		//min-width: 45%;
+		vertical-align: top;
+		margin-bottom: @pad*2;
 		b {
 			.l;
 			display: block;
 		}
+	}
+	.submit {
+		display: block;
 	}
 	.time label {
 		margin-right: @pad;
@@ -347,6 +377,7 @@ input {
 			.tiny;
 			position: absolute;
 			left: 0;
+			line-height: 1rem;
 			top: 0;
 			padding: @pad/2;
 			display: block;
