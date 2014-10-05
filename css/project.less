@@ -23,15 +23,15 @@
 
 @color-link-header: @wet_asphalt;
 html {
-	font-size: 10px;
+	font-size: 12px;
 	@media (min-width: 420px) {
-		font-size: 12px;
-	}
-	@media (min-width: 540px) {
 		font-size: 14px;
 	}
-	@media (min-width: 768px) {
+	@media (min-width: 540px) {
 		font-size: 16px;
+	}
+	@media (min-width: 768px) {
+		font-size: 18px;
 	}
 	-ms-touch-action: manipulation;
     touch-action: manipulation;
@@ -79,26 +79,40 @@ body {
 	.light;
 }
 header {
-	padding: @pad*2;
+	//padding: @pad*2;
+	background: @pomegranate;
 	.tabs {
-		.nolist;
-		text-align: center;
+		.tabs();
 		> li {
-			display: inline-block;
+			width: 33.33%;
 			a {
-				.light;
-				color: #fff;
-				display: block;
-				text-decoration: none;
-				padding: @pad*2 @pad*3;
-				background: @pomegranate;
-				.l;
-				&.active {
-					background: @alizarin;
-				}
+				padding: @pad*2 @pad;
+				.xxl;
 			}
 		}
 	}
+}
+.tabs(@color1: @pomegranate, @color2: @alizarin) {
+	text-align: center;
+	> li {
+		.nolist;
+		display: inline-block;
+		a {
+			.light;
+			color: #fff;
+			display: block;
+			cursor: pointer;
+			text-decoration: none;
+			padding: @pad*2 @pad*3;
+			background: @color1;
+			&.active {
+				background: @color2;
+			}
+		}
+	}
+}
+.btns {
+	.tabs(@silver, @wet_asphalt);
 }
 section.view {
 	display: none;
@@ -115,11 +129,12 @@ audio {
 	.bounceIn;
 }
 .timer {
-	@size: @pad*60;
+	@size: @pad*50;
 	@color-accent: @alizarin;
+	@size_inner: @size*0.9;
 	&.playing {
 		.dial-inner {
-			span::before {
+			> span::before {
 				.icon-pause;
 			}
 		}
@@ -182,7 +197,7 @@ audio {
 		}
 		.dial-inner {
 			background: @color-accent;
-			span {
+			> span {
 				&::before {
 					.icon-notification;
 					color: #fff;
@@ -191,7 +206,6 @@ audio {
 		}
 	}
 	.dial-inner {
-		@size_inner: @size*0.9;
 		position: absolute;
 		box-shadow: 0 0 0 @pad  @clouds;
 		width: @size_inner;
@@ -204,10 +218,12 @@ audio {
 		background: @clouds;
 		.radius(50%);
 		.transitions();
-		span {
-			@icon_size: @size_inner/4;
+		> span {
+			@icon_size: @size_inner/2;
 			&::before {
 				.icon-play-2;
+				z-index: 1;
+				opacity: .1;
 				.radius(50%);
 				position: absolute;
 				top: 50%;
@@ -221,6 +237,32 @@ audio {
 				margin-top: -@icon_size/2;
 				margin-left: -@icon_size/2;
 			}	
+		}
+		.time {
+			@scale: 1.2;
+			position: absolute;
+			z-index: 2;
+			top: 50%;
+			width: 100%;
+			text-align: center;
+			margin-top: -@size_inner*@scale/10;
+			font-size: @size_inner*@scale/5;
+			line-height: @size_inner*@scale/5;
+			.light;
+			span {
+				width: @size_inner*@scale/4.4;
+				display: inline-block;
+			}
+		}
+	}
+	.current-blinds {
+		font-size: @size/10;
+		.light;
+		.min-blind, .max-blind {
+			//color: @alizarin;
+		}
+		.max-blind {
+			.bold;
 		}
 	}
 }
@@ -255,8 +297,9 @@ header {
 h1 {
 	.animated;
 	.fadeIn;
-	margin-bottom: @pad*5;
+	margin-bottom: @pad*4;
 	position: relative;
+	.light;
 	span {
 		background: @clouds;
 		padding: 0 @pad*2;
@@ -385,5 +428,11 @@ input, select {
 		input {
 			padding-top: @pad*3;
 		}
+	}
+}
+
+.multiBlock {
+	.block {
+		display: none;
 	}
 }

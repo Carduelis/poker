@@ -61,6 +61,9 @@ $(document).ready(function(){
 			var value = $(this).val();
 			store.set(id,value);
 		});
+		calculateAward(store.get('tournamentType'),store.get('tournamentKnockout'),store.get('tournamentPlayers'), store.get('tournamentFee'), store.get('tournamentChips'));
+		alert('Результаты на вкладке "sit-n-go"');
+	
 	});
 	/*
 	$('#sitNGoSettings input,#sitNGoSettings select').each(function(){
@@ -123,9 +126,6 @@ $(document).ready(function(){
 
 
 });
-	$('#calculateTournament').on('click', function(){
-		calculateAward(store.get('tournamentType'),store.get('tournamentKnockout'),store.get('tournamentPlayers'), store.get('tournamentFee'), store.get('tournamentChips'));
-	})
 ///////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////
 ///////
@@ -297,3 +297,15 @@ $('.tabs a').on('click',function() {
   $('section.view').not(openBlock).hide();
   $('.tabs a').not(thisLink).removeClass('active');
 });
+
+
+$('.multiBlock > .btns a').on('click',function() {
+  var t = $(this).parent();
+  var p = t.parents('.multiBlock');
+  p.find('.btns a').removeClass('active');
+  p.find('.blocks > .block').hide();
+  t.find('a').addClass('active');
+  p.find('.blocks > .block:eq('+ t.index() +')').fadeIn(300);
+});
+$('.multiBlock > .btns li:eq(0) a').addClass('active');
+$('.multiBlock > .blocks > .block:eq(0)').show();
