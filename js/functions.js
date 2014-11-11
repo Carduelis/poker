@@ -6,22 +6,25 @@ var blindsCounter = 0;
 
 var bigblinds = [];
 /* Данные по умолчанию */
-store.set('time',{'minutes': 10, 'seconds': 00});
-store.set('minblinds', [5,10,20,30,40,50,75,100,200,400,800]);
+store.set('time',{'minutes': 1, 'seconds': 00});
+store.set('smallblinds', [5,10,20,30,40,50,75,100,200,400,800]);
+store.set('bigblinds', [10,20,40,60,80,100,150,200,400,800,1600]);
 store.set('tournamentChips','500');
 store.set('tournamentFee','100');
 store.set('tournamentKnockout','knockoutOn');
 store.set('tournamentPlayers','9');
 store.set('tournamentType','sit-n-go-50');
-	// Большие блайнды делаются легко
-	
+/*
+// Большие блайнды могут не быть в два раза больше малых
+
 getBigBlinds();
 function getBigBlinds() {
-	for (var i = store.get('minblinds').length - 1; i >= 0; i--) {
-		bigblinds[i] = store.get('minblinds')[i] *2
+	for (var i = store.get('smallblinds').length - 1; i >= 0; i--) {
+		bigblinds[i] = store.get('smallblinds')[i] *2
 	};
 	store.set('bigblinds', bigblinds);
 }
+*/
 
 /* Вывод данных в html */
 $(document).ready(function(){
@@ -30,11 +33,16 @@ $(document).ready(function(){
 
 	$('#minutes').attr('value','10');
 	$('#seconds').attr('value','00');
-	var html ='';
-	for (var i = 0; i < store.get('minblinds').length; i++) {
-		html+= "<label><span>Круг №"+(i+1)+"</span><input data-name='minblinds' data-index=" +i+ " value=" + store.get('minblinds')[i] + " type='number'></label>"
+	var htmlForBlinds ='<table>';
+	htmlForBlinds +='<thead><tr><th>#</th><th>Малый блайнд</th><th>Большой блайнд</th></tr></thead>';
+	htmlForBlinds +='<tbody>'
+	for (var i = 0; i < store.get('smallblinds').length; i++) {
+		htmlForBlinds+= "<tr><td>Круг №"+(i+1)+"</td>"
+		htmlForBlinds+= "<td><label class='small'><input data-name='smallblinds' data-index=" +i+ " value=" + store.get('smallblinds')[i] + " type='number'></label></td>"
+		htmlForBlinds+= "<td><label class='big'><input data-name='bigblinds' data-index=" +i+ " value=" + store.get('bigblinds')[i] + " type='number'></label></td>"
+		htmlForBlinds+= "</tr>"
 	};
-	$('#simpleTimerSettings .blinds').append(html);
+	$('#simpleTimerSettings .blinds').append(htmlForBlinds);
 
 });
 
@@ -44,13 +52,19 @@ $(document).ready(function(){
 	$('#simpleTimerSettings .submit .button').on('click', function(){
 		alert('Пока ничего не сохраняется :(')
 		var parent = $(this).parents('.content');
+		var smallblinds = []
 		parent.find('input').each(function(){
-
-			if($(this).attr('data-index')) {
+			if ($(this).attr('data-name') == 'smallblinds') {
 				// this means array
+				smallblinds[i] += $(this).val();
+				
+				console.info(smallblinds)
+
+			} else if ($(this).attr('data-name') == 'bigblinds') {
+				// not array
 
 			} else {
-				// not array
+
 			}
 		})
 	});
@@ -118,13 +132,20 @@ $(document).ready(function(){
 		timer();
 		showControls();
 		playTada();
+		$(this).addClass('paused')
 	});
 	$('.timer').on('click',function(){
 		pauseResume();
 		$(this).toggleClass('playing');
+		$(this).toggleClass('paused')
 	});
 
-
+	$('input[data-name="smallblinds"]').on('change', function(){
+		var minblind = +$(this).val();
+		var bigblind = minblind*2; 
+		$(this).parent().parent().parent().find('input[data-name="bigblinds"]').val(bigblind);
+		$(this).parent().parent().parent().next().find('input[data-name="smallblinds"]').val(minblind+10);
+	});
 });
 ///////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////
@@ -258,8 +279,9 @@ function playTada() {
 }
 
 function appendBlinds() {
-	$('.min-blind').text(store.get('minblinds')[blindsCounter]);
-	$('.max-blind').text(store.get('bigblinds')[blindsCounter]);
+
+	$('.small-blind').text(store.get('smallblinds')[blindsCounter]);
+	$('.big-blind').text(store.get('bigblinds')[blindsCounter]);
 }
 
 function pauseResume() {

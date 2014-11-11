@@ -31,10 +31,11 @@ html {
 		font-size: 16px;
 	}
 	@media (min-width: 768px) {
-		font-size: 18px;
+		font-size: 16px;
 	}
 	-ms-touch-action: manipulation;
     touch-action: manipulation;
+    .unsel;
 }
 @pad: 0.5rem;
 @color-white: #fff;
@@ -121,6 +122,8 @@ section.view {
 		display: block;
 	}
 }
+section {
+}
 audio {
 	//opacity: 0;
 }
@@ -132,7 +135,24 @@ audio {
 	@size: @pad*50;
 	@color-accent: @alizarin;
 	@size_inner: @size*0.9;
+	&.paused {
+		.dial-outer {
+			opacity: .4;
+		}
+		> h2 {
+			.animated;
+			.flash;
+		-webkit-animation-iteration-count: infinite;
+		   -moz-animation-iteration-count: infinite;
+		     -o-animation-iteration-count: infinite;
+		        animation-iteration-count: infinite;
+		}
+	}
 	&.playing {
+		.dial-outer {
+			opacity: 1;
+			.animated;
+		}
 		.dial-inner {
 			> span::before {
 				.icon-pause;
@@ -170,7 +190,7 @@ audio {
 			//top: -@size*0.05;
 		//z-index: -1;
 		//left: -@size/2
-		box-shadow: 0 0 0 @pad @clouds;
+		//box-shadow: 0 0 0 @pad @clouds;
 		.rotate(-45deg);
 		&.first {
 			z-index: 2;
@@ -203,11 +223,14 @@ audio {
 					color: #fff;
 				}
 			}
+			h2 {
+				color: #fff;
+			}
 		}
 	}
 	.dial-inner {
 		position: absolute;
-		box-shadow: 0 0 0 @pad  @clouds;
+		//box-shadow: 0 0 0 @pad fadeout(@alizarin, 30%);
 		width: @size_inner;
 		height: @size_inner;
 		top: 50%;
@@ -238,30 +261,32 @@ audio {
 				margin-left: -@icon_size/2;
 			}	
 		}
-		.time {
-			@scale: 1.2;
+		h2 {
+			@scale: 1.5;
 			position: absolute;
 			z-index: 2;
 			top: 50%;
-			width: 100%;
+			width: 120%;
+			margin-left: -10%;
 			text-align: center;
 			margin-top: -@size_inner*@scale/10;
 			font-size: @size_inner*@scale/5;
 			line-height: @size_inner*@scale/5;
 			.light;
+			white-space: nowrap;
 			span {
-				width: @size_inner*@scale/4.4;
-				display: inline-block;
+				//width: @size_inner*@scale/4.4;
+				//display: inline-block;
 			}
 		}
 	}
 	.current-blinds {
 		font-size: @size/10;
 		.light;
-		.min-blind, .max-blind {
+		.small-blind, .big-blind {
 			//color: @alizarin;
 		}
-		.max-blind {
+		.big-blind {
 			.bold;
 		}
 	}
@@ -391,12 +416,16 @@ input, select {
 		vertical-align: top;
 		margin-bottom: @pad*2;
 		b {
-			.l;
+			.xl;
 			display: block;
 		}
 	}
 	.submit {
 		display: block;
+		a {
+			display: block;
+			text-align: center;
+		}
 	}
 	.time label {
 		margin-right: @pad;
@@ -405,8 +434,19 @@ input, select {
 			text-align: center;
 		}
 	}
+	.blinds table {
+		text-align: center;
+		td {
+			white-space: nowrap;
+		}
+	}
 	.blinds label {
 		margin-right: @pad;
+		&.big {
+			input {
+				.bold;
+			}
+		}
 		input {
 			width: @pad*12;
 			text-align: center;
@@ -425,7 +465,7 @@ input, select {
 			padding: @pad/2;
 			display: block;
 		}
-		input {
+		span + input {
 			padding-top: @pad*3;
 		}
 	}

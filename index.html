@@ -8,11 +8,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <meta name="format-detection" content="telephone=no">
 <meta name="HandheldFriendly" content="True">
+
+
+<link rel="stylesheet" href="css/style.css">         
+<!--realtime less compiler        
 <link rel="stylesheet/less" type="text/css" href="css/style.less">
 <script src="js/less.js" type="text/javascript"></script>
-<!--realtime less compiler        
-<link rel="stylesheet" href="css/style.css">         
 это для скопмилированного css-->
+
+
 <body>
 <div class="wrapper">
 <header>
@@ -33,13 +37,14 @@
 				<a class="dial-outer">
 					<div class="dial-inner">
 						<span></span>
-						<h2 class="time"><span class="minutes">10</span>:<span class="seconds">00</span></h2>
+						<h2 class="current-blinds"><span class="min-blind">5</span>/<span class="max-blind">10</h2>
 					</div>
 					<div class="dial-mask first"></div>
 					<div class="dial-mask second"></div>
 				</a>
 			</div>
-		<h2 class="current-blinds">Блайнды: <span class="min-blind">5</span>/<span class="max-blind">10</h2>
+						<h2 class="time"><span class="minutes">10</span>:<span class="seconds">00</span></h2>
+		
 		</div>
 		<div class="actions">
 			<a class="button min" id="startOver" onclick="startOver()">Начать<br> заново</a>
@@ -65,7 +70,6 @@
 				</ul>
 				<div class="blocks">
 					<section id="simpleTimerSettings" class="block">
-						<h2>Настройки таймера</h2>
 						<ul class="form">
 							<li class="time"><b>Время раунда</b>
 								<label><span>Минуты</span><input id="minutes" data-name='minutes' class="simpleTimer" type="number" value="10"></label>
@@ -75,7 +79,6 @@
 						</ul>
 					</section>
 					<section id="sitNGoSettings" class="block">
-						<h2>Настройки турнира</h2>
 						<ul class="form">
 							<li><b>Тип турнира</b>
 								<label>
